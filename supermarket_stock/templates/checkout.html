@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - InstantThings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1050px;
+            margin: 35px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #2575fc;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-name {
+            font-weight: bold;
+        }
+
+        .order-qty {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .order-price {
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 2px solid #eee;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .place-order {
+            width: 100%;
+            border: none;
+            background: #198754;
+            color: white;
+            padding: 14px;
+            border-radius: 9px;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .place-order:hover {
+            background: #157347;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .secure {
+            margin-top: 18px;
+            padding: 12px;
+            background: #eef8f2;
+            color: #198754;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h2>🛒 INSTANTTHINGS</h2>
+
+    <a href="{{ url_for('cart') }}">
+        ← Back to Cart
+    </a>
+
+</header>
+
+
+<div class="container">
+
+    <h1>🧾 Checkout</h1>
+
+
+    <div class="checkout-layout">
+
+
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="card">
+
+            <h2>👤 Customer Details</h2>
+
+            <form method="POST">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter phone number"
+                    required
+                >
+
+
+                <label>
+                    Delivery Address
+                </label>
+
+                <textarea
+                    name="address"
+                    placeholder="Enter complete address"
+                    required
+                ></textarea>
+
+
+                <label>
+                    Payment Method
+                </label>
+
+                <select
+                    name="payment_method"
+                    required
+                >
+
+                    <option value="">
+                        Select payment method
+                    </option>
+
+                    <option value="Cash on Delivery">
+                        💵 Cash on Delivery
+                    </option>
+
+                    <option value="UPI">
+                        📱 UPI
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="place-order"
+                >
+                    🛍️ Place Order
+                </button>
+
+            </form>
+
+
+            <div class="secure">
+                🔒 Your order details are securely processed.
+            </div>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="card">
+
+            <h2>🛒 Order Summary</h2>
+
+
+            {% for item in items %}
+
+            <div class="order-item">
+
+                <div>
+
+                    <div class="order-name">
+                        {{ item.name }}
+                    </div>
+
+                    <div class="order-qty">
+                        Quantity: {{ item.quantity }}
+                    </div>
+
+                </div>
+
+
+                <div class="order-price">
+
+                    ₹{{ "%.2f"|format(item.subtotal) }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+
+            <div class="total">
+
+                <span>
+                    Total
+                </span>
+
+                <span>
+                    ₹{{ "%.2f"|format(total) }}
+                </span>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="back"
+            >
+                ← Edit Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

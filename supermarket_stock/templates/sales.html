@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sales History - InstantThings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .title {
+            margin-bottom: 25px;
+        }
+
+        .title h1 {
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #777;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow:
+                0 7px 22px rgba(0,0,0,0.07);
+        }
+
+        .summary-card h3 {
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .money {
+            color: #198754;
+        }
+
+        .count {
+            color: #2575fc;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            overflow-x: auto;
+            box-shadow:
+                0 7px 22px rgba(0,0,0,0.07);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #eef3ff;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #fafbff;
+        }
+
+        .sale-id {
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        .price {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #777;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 11px 18px;
+            background: #2575fc;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #20232a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<header>
+
+    <h2>🛒 INSTANTTHINGS</h2>
+
+    <nav>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('product_list') }}">
+            Products
+        </a>
+
+        <a href="{{ url_for('sales_history') }}">
+            Sales
+        </a>
+
+        <a href="{{ url_for('customer') }}">
+            Customer Shop
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="title">
+
+        <h1>
+            🧾 Sales History
+        </h1>
+
+        <p>
+            View all completed product sales
+        </p>
+
+    </div>
+
+
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <h3>
+                💰 Total Sales
+            </h3>
+
+            <div class="value money">
+                ₹{{ "%.2f"|format(total_sales) }}
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>
+                🧾 Total Transactions
+            </h3>
+
+            <div class="value count">
+                {{ total_transactions }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-card">
+
+        {% if sales %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Sale ID</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Date & Time</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for sale in sales %}
+
+                <tr>
+
+                    <td>
+                        <span class="sale-id">
+                            #{{ sale[0] }}
+                        </span>
+                    </td>
+
+                    <td>
+                        🛒 {{ sale[1] }}
+                    </td>
+
+                    <td>
+                        <span class="price">
+                            ₹{{ "%.2f"|format(sale[2]) }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ sale[3] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>
+                🧾 No Sales Yet
+            </h2>
+
+            <p>
+                Completed sales will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+
+<footer>
+
+    <p>
+        🛒 <strong>InstantThings</strong>
+    </p>
+
+    <p>
+        Sales Management System
+    </p>
+
+    <p>
+        © 2026 InstantThings
+    </p>
+
+</footer>
+
+</body>
+
+</html>

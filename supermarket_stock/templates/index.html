@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>InstantThings - Supermarket Management</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8e1,
+                    #e1f5fe,
+                    #e8f5e9
+                );
+        }
+
+        /* HEADER */
+
+        .header {
+
+            background:
+                rgba(0, 0, 0, 0.9);
+
+            color: white;
+
+            padding: 22px 8%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+        }
+
+        .logo {
+
+            font-size: 30px;
+
+            font-weight: bold;
+        }
+
+        .header-subtitle {
+
+            color: #ddd;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+        }
+
+        .login-button {
+
+            background: #1976d2;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .login-button:hover {
+
+            background: #0d47a1;
+        }
+
+        /* HERO */
+
+        .hero {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 60px 40px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+
+            font-size: 42px;
+
+            color: #263238;
+
+            margin: 10px 0;
+        }
+
+        .hero h1 span {
+
+            color: #1976d2;
+        }
+
+        .hero p {
+
+            max-width: 700px;
+
+            margin: 15px auto 30px;
+
+            color: #607d8b;
+
+            font-size: 18px;
+
+            line-height: 1.6;
+        }
+
+        .hero-button {
+
+            display: inline-block;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1976d2,
+                    #42a5f5
+                );
+
+            color: white;
+
+            padding: 15px 28px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: bold;
+        }
+
+        .hero-button:hover {
+
+            background: #0d47a1;
+        }
+
+        /* FEATURES */
+
+        .features {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 40px auto 60px;
+
+        }
+
+        .features-title {
+
+            text-align: center;
+
+            color: #263238;
+
+            margin-bottom: 30px;
+
+            font-size: 28px;
+        }
+
+        .feature-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 25px;
+        }
+
+        .feature-card {
+
+            background: white;
+
+            padding: 30px 20px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 18px
+                rgba(0, 0, 0, 0.12);
+
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-6px);
+        }
+
+        .feature-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+
+            color: #263238;
+
+            margin: 10px 0;
+        }
+
+        .feature-card p {
+
+            color: #78909c;
+
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+
+        .footer {
+
+            background:
+                rgba(0, 0, 0, 0.9);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 28px;
+
+            margin-top: 30px;
+        }
+
+        .footer p {
+
+            margin: 7px;
+        }
+
+        .footer-small {
+
+            color: #aaa;
+
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div>
+
+            <div class="logo">
+                🛒 InstantThings
+            </div>
+
+            <div class="header-subtitle">
+                Supermarket Stock Management System
+            </div>
+
+        </div>
+
+
+        <a
+            href="/login"
+            class="login-button"
+        >
+            🔐 Admin Login
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            🛒
+        </div>
+
+        <h1>
+            Welcome to
+            <span>InstantThings</span>
+        </h1>
+
+        <p>
+            A simple and efficient supermarket
+            stock management system for managing
+            products, inventory, sales and
+            transaction history.
+        </p>
+
+
+        <a
+            href="/login"
+            class="hero-button"
+        >
+            🚀 Get Started
+        </a>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <h2 class="features-title">
+            ✨ What You Can Manage
+        </h2>
+
+
+        <div class="feature-grid">
+
+
+            <!-- PRODUCTS -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Product Management
+                </h3>
+
+                <p>
+                    Add products, update stock
+                    information and manage
+                    supermarket inventory.
+                </p>
+
+            </div>
+
+
+            <!-- STOCK -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Stock Monitoring
+                </h3>
+
+                <p>
+                    Quickly identify available,
+                    low-stock and out-of-stock
+                    products.
+                </p>
+
+            </div>
+
+
+            <!-- SALES -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧾
+                </div>
+
+                <h3>
+                    Sales History
+                </h3>
+
+                <p>
+                    Keep track of completed sales
+                    and view transaction details
+                    whenever needed.
+                </p>
+
+            </div>
+
+
+            <!-- IMAGES -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🖼️
+                </div>
+
+                <h3>
+                    Product Images
+                </h3>
+
+                <p>
+                    Upload product images to make
+                    inventory management easier
+                    and more visual.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+            🛒 <strong>InstantThings</strong>
+        </p>
+
+        <p>
+            Python + Flask + SQLite
+        </p>
+
+        <p class="footer-small">
+            Supermarket Stock Management System
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
+

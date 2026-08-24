@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - InstantThings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #777;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow:
+                0 7px 22px rgba(0,0,0,0.07);
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            margin: 0 0 8px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .green {
+            border-left: 5px solid #198754;
+        }
+
+        .orange {
+            border-left: 5px solid #fd7e14;
+        }
+
+        .red {
+            border-left: 5px solid #dc3545;
+        }
+
+        .blue {
+            border-left: 5px solid #2575fc;
+        }
+
+        .purple {
+            border-left: 5px solid #6f42c1;
+        }
+
+        .quick {
+            margin-top: 35px;
+        }
+
+        .quick h2 {
+            margin-bottom: 20px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .action {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #222;
+            font-weight: bold;
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.06);
+            transition: 0.2s;
+        }
+
+        .action:hover {
+            transform: translateY(-3px);
+        }
+
+        .action span {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .customer {
+            background: #2575fc;
+            color: white;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #20232a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h2>🛒 INSTANTTHINGS</h2>
+
+    <nav>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('product_list') }}">
+            Products
+        </a>
+
+        <a href="{{ url_for('sales_history') }}">
+            Sales
+        </a>
+
+        <a href="{{ url_for('customer') }}">
+            Customer Shop
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>
+            📊 Admin Dashboard
+        </h1>
+
+        <p>
+            Welcome to InstantThings Stock Management System
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card blue">
+
+            <div class="icon">📦</div>
+
+            <h3>Total Products</h3>
+
+            <div class="number">
+                {{ total }}
+            </div>
+
+        </div>
+
+
+        <div class="card green">
+
+            <div class="icon">🟢</div>
+
+            <h3>Available Stock</h3>
+
+            <div class="number">
+                {{ available }}
+            </div>
+
+        </div>
+
+
+        <div class="card orange">
+
+            <div class="icon">⚠️</div>
+
+            <h3>Low Stock</h3>
+
+            <div class="number">
+                {{ low_stock }}
+            </div>
+
+        </div>
+
+
+        <div class="card red">
+
+            <div class="icon">🔴</div>
+
+            <h3>Out of Stock</h3>
+
+            <div class="number">
+                {{ out_of_stock }}
+            </div>
+
+        </div>
+
+
+        <div class="card purple">
+
+            <div class="icon">💰</div>
+
+            <h3>Total Sales</h3>
+
+            <div class="number">
+                ₹{{ "%.2f"|format(total_sales) }}
+            </div>
+
+        </div>
+
+
+        <div class="card blue">
+
+            <div class="icon">🧾</div>
+
+            <h3>Transactions</h3>
+
+            <div class="number">
+                {{ total_transactions }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="quick">
+
+        <h2>⚡ Quick Actions</h2>
+
+
+        <div class="actions">
+
+            <a
+                href="{{ url_for('add_product') }}"
+                class="action"
+            >
+                <span>➕</span>
+                Add Product
+            </a>
+
+
+            <a
+                href="{{ url_for('product_list') }}"
+                class="action"
+            >
+                <span>📦</span>
+                Manage Products
+            </a>
+
+
+            <a
+                href="{{ url_for('sales_history') }}"
+                class="action"
+            >
+                <span>🧾</span>
+                Sales History
+            </a>
+
+
+            <a
+                href="{{ url_for('customer') }}"
+                class="action customer"
+            >
+                <span>🛒</span>
+                Open Customer Shop
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        🛒 <strong>InstantThings</strong>
+    </p>
+
+    <p>
+        Supermarket Stock Management System
+    </p>
+
+    <p>
+        © 2026 InstantThings
+    </p>
+
+</footer>
+
+</body>
+</html>
